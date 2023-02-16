@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">QuizBuilder</string>
+    <string name="description">Welcome to the ultimate trivia showdown! Test your knowledge on a variety of subjects, including history, science, pop culture, and sports. Gather your friends and family for a fun and educational experience. Let\'s see who comes out on top!</string>
+    <string name="tvEntrantName">Entrant Name</string>
+    <string name="ptEntrantName">Name</string>
+    <string name="tvTopicName">Choose Topic</string>
+    <string name="tvTopicDropdown">Topic</string>
+    <string name="startButton">Start Game</string>
+    <string-array name="topic_spinner">
+        <item>Math</item>
+        <item>Programming</item>
+    </string-array>
+
+    <string name="tvQuestionNumber">Question Number: </string>
+    <string name="tvCurrentTopic">Current Topic: </string>
+    <string name="tvParticipantName">Participant Name: </string>
+    <string name="tvCurrentScore">Current Score: </string>
+    <string name="tvSubmitAnswer">Submit Answer</string>
+    <string name="tvQuestion">Question: </string>
+</resources>
