@@ -17,4 +17,9 @@
     <string name="tvCurrentScore">Current Score: </string>
     <string name="tvSubmitAnswer">Submit Answer</string>
     <string name="tvQuestion">Question: </string>
+
+    <string name="aRadio">A</string>
+    <string name="bRadio">B</string>
+    <string name="cRadio">C</string>
+    <string name="dRadio">D</string>
 </resources>

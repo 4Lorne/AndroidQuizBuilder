@@ -11,9 +11,12 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+//TODO: Add check for Name in name
+
 public class MainActivity extends AppCompatActivity {
     Button startGame;
-    TextView entrantName;
+    EditText ptEntrantName;
+
 
     PlayerObject player = new PlayerObject();
 
@@ -23,9 +26,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         populateSpinner();
         startGame = findViewById(R.id.button);
-        entrantName = findViewById(R.id.ptEntrantName);
+        ptEntrantName = findViewById(R.id.ptEntrantName);
         startGame.setOnClickListener(onButtonClicked);
+        ptEntrantName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    ptEntrantName.setText("");
+                }
+                if (!hasFocus && ptEntrantName.length() == 0) {
+                    ptEntrantName.setText("Name");
+                }
+            }
+        });
     }
+
 
     public View.OnClickListener onButtonClicked = v -> {
         switch (v.getId()) {
@@ -35,14 +50,14 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    public void onFocusChange(View v, boolean hasFocus){
-
-    }
-    public void changeView(){
-        Intent i = new Intent(MainActivity.this,MainActivity2.class);
-        i.putExtra("user",entrantName.getText().toString());
+    //Switches the view to the quiz fragment
+    public void changeView() {
+        Intent i = new Intent(MainActivity.this, MainActivity2.class);
+        i.putExtra("user", ptEntrantName.getText().toString());
         startActivity(i);
     }
+
+    //Populates the spinner with different topics to choose from
     public void populateSpinner() {
         Spinner spinner = (Spinner) findViewById(R.id.topicSpinner);
         // Create an ArrayAdapter using the string array and a default spinner layout
@@ -54,15 +69,9 @@ public class MainActivity extends AppCompatActivity {
         spinner.setAdapter(adapter);
     }
 
-    public void createPlayer(){
-        try {
-            player.setName(entrantName.toString());
-            System.out.println(player.getName());
-        } catch (Exception e){
-            e.getCause();
-        }
-
-
-
+    //Creates a player object
+    public void createPlayer() {
+        player.setName(ptEntrantName.toString());
+        System.out.println(player.getName());
     }
 }
