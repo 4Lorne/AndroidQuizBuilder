@@ -66,6 +66,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <RadioGroup
+        android:id="@+id/radioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -78,22 +79,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/aRadio"
+            android:id="@+id/aRadio"
             />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bRadio"/>
+            android:text="@string/bRadio"
+            android:id="@+id/bRadio"
+            />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cRadio"/>
+            android:text="@string/cRadio"
+            android:id="@+id/cRadio"
+            />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dRadio"/>
+            android:text="@string/dRadio"
+            android:id="@+id/dRadio"
+            />
 
     </RadioGroup>
 
