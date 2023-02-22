@@ -71,6 +71,7 @@ public class GamePlay extends AppCompatActivity {
         switch (v.getId()) {
             case R.id.tvSubmitAnswer:
                 submitAnswer();
+                changeView();
         }
     };
 
@@ -106,14 +107,7 @@ public class GamePlay extends AppCompatActivity {
 
     //Checks for validity
     public void checkAnswer(TextView radio, String currentScoreString) {
-        if (questionCounter > 10){
-            questionCounter = 10;
-            changeView();
-        }
         if (radio.getText().equals(dictionary.get(term.get(index)))) {
-            if (score >= 10){
-                return;
-            }
             Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_LONG).show();
             score++;
             currentScoreString = currentScoreString + score;
@@ -127,6 +121,8 @@ public class GamePlay extends AppCompatActivity {
     //TODO: Remove Questions as you answer
     //Generates new questions every time it is ran
     public void regenerateQuestions() {
+        Collections.shuffle(definition);
+
         String questionDefault = "Question ";
         questionNumber.setText(questionDefault);
         String questionNum = questionNumber.getText() + " " + questionCounter + "/10";
@@ -136,7 +132,6 @@ public class GamePlay extends AppCompatActivity {
         Random r = new Random();
         index = r.nextInt(term.size());
 
-        Collections.shuffle(definition);
         //TODO: Hard coded to always have the answer be in the first position, fix later
         //TODO: Possible for answers to be duplicates
         ArrayList<TextView> radioGroup = new ArrayList<>(Arrays.asList(aRadio,bRadio,cRadio,dRadio));
@@ -153,10 +148,14 @@ public class GamePlay extends AppCompatActivity {
 //            radioGroup.get(i).setText(definition.get(i));
 //
 //        }
-        aRadio.setText(dictionary.get(term.get(index)));
-        bRadio.setText(definition.get(r.nextInt(10)));
-        cRadio.setText(definition.get(r.nextInt(10)));
-        dRadio.setText(definition.get(r.nextInt(10)));
+        aRadio.setText(definition.get(0));
+        bRadio.setText(definition.get(1));
+        cRadio.setText(definition.get(2));
+        dRadio.setText(definition.get(3));
+
+        if (Objects.equals(dictionary.get(term.get(index)), aRadio.getText())){
+            System.out.println("True");
+        }
 
         //found = false;
         questionCounter++;
@@ -184,9 +183,11 @@ public class GamePlay extends AppCompatActivity {
 
     //Changes the view to the finished screen
     public void changeView() {
-        Intent i = new Intent(GamePlay.this, GameFinished.class);
-        i.putExtra("score", String.valueOf(score));
-        startActivity(i);
+        if (questionCounter > 10){
+            Intent i = new Intent(GamePlay.this, GameFinished.class);
+            i.putExtra("score", String.valueOf(score));
+            startActivity(i);
+        }
     }
 }
 
