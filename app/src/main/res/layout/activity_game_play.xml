@@ -11,8 +11,11 @@
         android:id="@+id/tvQuestionNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:background="@drawable/border"
         android:gravity="center"
         android:text="@string/tvQuestionNumber"
+        android:textColor="@color/black"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.115"
@@ -23,8 +26,11 @@
         android:id="@+id/tvCurrentScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:background="@drawable/border"
         android:gravity="center"
         android:text="@string/tvCurrentScore"
+        android:textColor="@color/black"
         android:textSize="48sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,22 +41,30 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:background="@drawable/titlebg"
+        android:backgroundTint="#007BFF"
         android:text="@string/tvSubmitAnswer"
+        android:textColor="@color/white"
+        app:backgroundTint="#007BFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/radioGroup"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.36" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
-        android:layout_width="318dp"
-        android:layout_height="192dp"
-        android:layout_marginTop="52dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:layout_marginTop="64dp"
+        android:layout_marginBottom="113dp"
+        android:gravity="center"
         android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/tvSubmitAnswer"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuestion">
 
@@ -58,25 +72,49 @@
             android:id="@+id/aRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/aRadio" />
+            android:layout_margin="5sp"
+
+            android:background="@drawable/titlebg"
+            android:buttonTint="@color/white"
+            android:text="@string/aRadio"
+            android:textColor="@color/white"
+            app:backgroundTint="#007BFF" />
 
         <RadioButton
             android:id="@+id/bRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/bRadio" />
+            android:layout_margin="5sp"
+            android:background="@drawable/titlebg"
+
+            android:buttonTint="@color/white"
+            android:text="@string/bRadio"
+            android:textColor="@color/white"
+            app:backgroundTint="#007BFF" />
 
         <RadioButton
             android:id="@+id/cRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cRadio" />
+            android:layout_margin="5sp"
+            android:background="@drawable/titlebg"
+
+            android:buttonTint="@color/white"
+            android:text="@string/cRadio"
+            android:textColor="@color/white"
+            app:backgroundTint="#007BFF" />
 
         <RadioButton
             android:id="@+id/dRadio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/dRadio" />
+            android:layout_margin="5sp"
+            android:background="@drawable/titlebg"
+
+            android:buttonTint="@color/white"
+            android:text="@string/dRadio"
+            android:textColor="@color/white"
+            app:backgroundTint="#007BFF" />
 
     </RadioGroup>
 
@@ -86,6 +124,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/tvQuestion"
+        android:textColor="@color/black"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/tvQuestionNumber"
         app:layout_constraintHorizontal_bias="0.0"
