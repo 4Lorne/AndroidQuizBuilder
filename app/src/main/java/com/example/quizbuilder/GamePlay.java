@@ -16,11 +16,12 @@ import java.util.LinkedHashMap;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MainActivity2 extends AppCompatActivity {
+public class GamePlay extends AppCompatActivity {
     String name;
+    String currentScoreString = "Current Score: ";
     PlayerObject player = new PlayerObject("");
 
-    TextView participantName, question;
+    TextView participantName, question, questionNumber, currentScore;
     TextView aRadio, bRadio, cRadio, dRadio;
     RadioGroup group;
 
@@ -31,18 +32,23 @@ public class MainActivity2 extends AppCompatActivity {
     HashMap<String, String> dictionary = new LinkedHashMap<>();
 
     int index; // Used for randomizing the index
+    int questionCounter = 0;
+    int score = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_game_play);
 
         name = getIntent().getStringExtra("user");
         player.setName("Name: " + name);
 
         participantName = findViewById(R.id.tvParticipantName);
         question = findViewById(R.id.tvQuestion);
+        questionNumber = findViewById(R.id.tvQuestionNumber);
         submitAnswer = findViewById(R.id.tvSubmitAnswer);
+        currentScore = findViewById(R.id.tvCurrentScore);
+
         aRadio = findViewById(R.id.aRadio);
         bRadio = findViewById(R.id.bRadio);
         cRadio = findViewById(R.id.cRadio);
@@ -53,7 +59,7 @@ public class MainActivity2 extends AppCompatActivity {
 
         participantName.setText(player.getName());
         question.setText("");
-
+        currentScore.setText(currentScoreString);
         readFile();
         regenerateQuestions();
     }
@@ -66,18 +72,56 @@ public class MainActivity2 extends AppCompatActivity {
     };
 
     public void submitAnswer() {
+        switch (group.getCheckedRadioButtonId()) {
+            case R.id.aRadio:
+                checkAnswer(aRadio, currentScoreString);
+                break;
+            case R.id.bRadio:
+                checkAnswer(bRadio, currentScoreString);
+                break;
+            case R.id.cRadio:
+                checkAnswer(cRadio, currentScoreString);
+                break;
+            case R.id.dRadio:
+                checkAnswer(dRadio, currentScoreString);
+                break;
+            default:
+                emptyAnswer();
+                break;
+
+        }
+        group.clearCheck();
+
+    }
+
+    public void emptyAnswer() {
         if (group.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), "Please select an answer to continue", Toast.LENGTH_LONG).show();
             return;
         }
-        if (aRadio.getText().equals(dictionary.get(term.get(index))) && group.getCheckedRadioButtonId() == R.id.aRadio) {
-            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_LONG).show();
-        }
-
-        regenerateQuestions();
     }
 
+    public void checkAnswer(TextView radio, String currentScoreString) {
+        if (radio.getText().equals(dictionary.get(term.get(index)))) {
+            Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_LONG).show();
+            score++;
+            currentScoreString = currentScoreString + score;
+            currentScore.setText(currentScoreString);
+            regenerateQuestions();
+        }
+    }
+
+    //TODO: Remove Questions as you answer
     public void regenerateQuestions() {
+        if (questionCounter >= 10) {
+            return;
+        }
+        questionCounter++;
+        String questionDefault = "Question: ";
+        questionNumber.setText(questionDefault);
+        String questionNum = questionNumber.getText() + " " + questionCounter;
+        questionNumber.setText(questionNum);
+
         //Randomizing the outcomes
         Random r = new Random();
         index = r.nextInt(term.size());

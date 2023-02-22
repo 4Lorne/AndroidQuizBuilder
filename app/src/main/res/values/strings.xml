@@ -22,4 +22,8 @@
     <string name="bRadio">B</string>
     <string name="cRadio">C</string>
     <string name="dRadio">D</string>
+
+    <string name="tvFinalScore">Final Score</string>
+    <string name="tvScore">0</string>
+    <string name="btnPlayAgain">Play Again</string>
 </resources>

@@ -9,11 +9,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 
 //TODO: Add check for Name in name
 
-public class MainActivity extends AppCompatActivity {
+public class GameStart extends AppCompatActivity {
     Button startGame;
     EditText ptEntrantName;
 
@@ -23,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game_start);
         populateSpinner();
         startGame = findViewById(R.id.button);
         ptEntrantName = findViewById(R.id.ptEntrantName);
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     //Switches the view to the quiz fragment
     public void changeView() {
-        Intent i = new Intent(MainActivity.this, MainActivity2.class);
+        Intent i = new Intent(GameStart.this, GamePlay.class);
         i.putExtra("user", ptEntrantName.getText().toString());
         startActivity(i);
     }
