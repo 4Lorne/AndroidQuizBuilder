@@ -18,10 +18,10 @@ import java.util.Scanner;
 
 public class GamePlay extends AppCompatActivity {
     String name;
-    String currentScoreString = "Current Score: ";
+    String currentScoreString = "Score: ";
     PlayerObject player = new PlayerObject("");
 
-    TextView participantName, question, questionNumber, currentScore;
+    TextView question, questionNumber, currentScore;
     TextView aRadio, bRadio, cRadio, dRadio;
     RadioGroup group;
 
@@ -41,9 +41,7 @@ public class GamePlay extends AppCompatActivity {
         setContentView(R.layout.activity_game_play);
 
         name = getIntent().getStringExtra("user");
-        player.setName("Name: " + name);
 
-        participantName = findViewById(R.id.tvParticipantName);
         question = findViewById(R.id.tvQuestion);
         questionNumber = findViewById(R.id.tvQuestionNumber);
         submitAnswer = findViewById(R.id.tvSubmitAnswer);
@@ -57,7 +55,6 @@ public class GamePlay extends AppCompatActivity {
 
         submitAnswer.setOnClickListener(onButtonClicked);
 
-        participantName.setText(player.getName());
         question.setText("");
         currentScore.setText(currentScoreString);
         readFile();
@@ -103,6 +100,9 @@ public class GamePlay extends AppCompatActivity {
 
     public void checkAnswer(TextView radio, String currentScoreString) {
         if (radio.getText().equals(dictionary.get(term.get(index)))) {
+            if (score >= 10){
+                return;
+            }
             Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_LONG).show();
             score++;
             currentScoreString = currentScoreString + score;
@@ -117,9 +117,9 @@ public class GamePlay extends AppCompatActivity {
             return;
         }
         questionCounter++;
-        String questionDefault = "Question: ";
+        String questionDefault = "Question ";
         questionNumber.setText(questionDefault);
-        String questionNum = questionNumber.getText() + " " + questionCounter;
+        String questionNum = questionNumber.getText() + " " + questionCounter + "/10";
         questionNumber.setText(questionNum);
 
         //Randomizing the outcomes

@@ -8,72 +8,50 @@
 
 
     <TextView
-        android:id="@+id/tvParticipantName"
-        android:layout_width="165dp"
-        android:layout_height="19dp"
-        android:text="@string/tvParticipantName"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrentScore"
-        app:layout_constraintVertical_bias="0.025" />
-
-    <TextView
         android:id="@+id/tvQuestionNumber"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/tvQuestionNumber"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvCurrentTopic"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvCurrentTopic"
-        app:layout_constraintTop_toBottomOf="@+id/tvCurrentTopic"
-        app:layout_constraintVertical_bias="0.025" />
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.115"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrentScore" />
 
     <TextView
         android:id="@+id/tvCurrentScore"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:text="@string/tvCurrentScore"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvParticipantName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvParticipantName"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.113" />
-
-    <TextView
-        android:id="@+id/tvCurrentTopic"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/tvCurrentTopic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/tvParticipantName"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/tvParticipantName"
-        app:layout_constraintTop_toBottomOf="@+id/tvParticipantName"
-        app:layout_constraintVertical_bias="0.026" />
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/tvSubmitAnswer"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
         android:text="@string/tvSubmitAnswer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/radioGroup"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/radioGroup"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        app:layout_constraintVertical_bias="0.7" />
+        app:layout_constraintVertical_bias="0.0" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
         android:layout_width="318dp"
         android:layout_height="192dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="52dp"
         android:orientation="vertical"
-        app:layout_constraintEnd_toEndOf="@+id/tvQuestion"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="@+id/tvQuestion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvQuestion">
 
         <RadioButton
@@ -106,8 +84,9 @@
         android:id="@+id/tvQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:gravity="center"
         android:text="@string/tvQuestion"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="@+id/tvQuestionNumber"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/tvQuestionNumber"
