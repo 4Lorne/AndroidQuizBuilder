@@ -2,6 +2,7 @@ package com.example.quizbuilder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,17 +10,20 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
 public class GamePlay extends AppCompatActivity {
     String name;
     String currentScoreString = "Score: ";
-    PlayerObject player = new PlayerObject("");
 
     TextView question, questionNumber, currentScore;
     TextView aRadio, bRadio, cRadio, dRadio;
@@ -29,11 +33,13 @@ public class GamePlay extends AppCompatActivity {
 
     ArrayList<String> term = new ArrayList<>();
     ArrayList<String> definition = new ArrayList<>();
-    HashMap<String, String> dictionary = new LinkedHashMap<>();
+    HashMap<String, String> dictionary = new HashMap<>();
 
     int index; // Used for randomizing the index
-    int questionCounter = 0;
+    int questionCounter = 1;
     int score = 0;
+    boolean found = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,18 +93,23 @@ public class GamePlay extends AppCompatActivity {
                 break;
 
         }
-        group.clearCheck();
+        group.clearCheck(); //Removes the button selection
 
     }
 
+    //Checks for no radio button selected
     public void emptyAnswer() {
         if (group.getCheckedRadioButtonId() == -1) {
             Toast.makeText(getApplicationContext(), "Please select an answer to continue", Toast.LENGTH_LONG).show();
-            return;
         }
     }
 
+    //Checks for validity
     public void checkAnswer(TextView radio, String currentScoreString) {
+        if (questionCounter > 10){
+            questionCounter = 10;
+            changeView();
+        }
         if (radio.getText().equals(dictionary.get(term.get(index)))) {
             if (score >= 10){
                 return;
@@ -108,15 +119,14 @@ public class GamePlay extends AppCompatActivity {
             currentScoreString = currentScoreString + score;
             currentScore.setText(currentScoreString);
             regenerateQuestions();
+        } else {
+            regenerateQuestions();
         }
     }
 
     //TODO: Remove Questions as you answer
+    //Generates new questions every time it is ran
     public void regenerateQuestions() {
-        if (questionCounter >= 10) {
-            return;
-        }
-        questionCounter++;
         String questionDefault = "Question ";
         questionNumber.setText(questionDefault);
         String questionNum = questionNumber.getText() + " " + questionCounter + "/10";
@@ -129,15 +139,29 @@ public class GamePlay extends AppCompatActivity {
         Collections.shuffle(definition);
         //TODO: Hard coded to always have the answer be in the first position, fix later
         //TODO: Possible for answers to be duplicates
+        ArrayList<TextView> radioGroup = new ArrayList<>(Arrays.asList(aRadio,bRadio,cRadio,dRadio));
+        question.setText(term.get(index));
+
+//        for (int i = 0; i < 4; i++){
+//            if (radioGroup.get(i).getText().equals(dictionary.get(question.getText().toString()))){
+//                found = true;
+//                System.out.println("found");
+//            }
+//            if (!found){
+//                radioGroup.get(i).setText(dictionary.get(definition.get(index)));
+//            }
+//            radioGroup.get(i).setText(definition.get(i));
+//
+//        }
         aRadio.setText(dictionary.get(term.get(index)));
         bRadio.setText(definition.get(r.nextInt(10)));
         cRadio.setText(definition.get(r.nextInt(10)));
         dRadio.setText(definition.get(r.nextInt(10)));
 
-        question.setText(term.get(index));
+        //found = false;
+        questionCounter++;
     }
 
-    //Complete
     //Reads in the terms.txt file and extracts the file into two arraylists and one hashmap
     public void readFile() {
         Scanner scan = new Scanner(getResources().openRawResource(R.raw.terms));
@@ -146,7 +170,7 @@ public class GamePlay extends AppCompatActivity {
         //Breaks the file into terms and definitions
         while (scan.hasNext()) {
             String token = scan.next();
-            if (token.contains("Question")) {
+            if (token.contains("What")) {
                 term.add(token);
             } else {
                 definition.add(token);
@@ -156,6 +180,13 @@ public class GamePlay extends AppCompatActivity {
         for (int i = 0; i < term.size(); i++) {
             dictionary.put(term.get(i), definition.get(i));
         }
+    }
+
+    //Changes the view to the finished screen
+    public void changeView() {
+        Intent i = new Intent(GamePlay.this, GameFinished.class);
+        i.putExtra("score", String.valueOf(score));
+        startActivity(i);
     }
 }
 

@@ -28,14 +28,14 @@
         android:text="@string/btnPlayAgain"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/tvFinalScoreNum" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/tvFinalScoreNum"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="@string/tvScore"
+        android:text="@string/tvFinalScoreNum"
         android:textSize="64sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -14,6 +14,7 @@ import android.widget.Spinner;
 
 public class GameStart extends AppCompatActivity {
     Button startGame;
+    Intent i;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,7 @@ public class GameStart extends AppCompatActivity {
         //populateSpinner();
         startGame = findViewById(R.id.button);
         startGame.setOnClickListener(onButtonClicked);
+
     }
 
 
@@ -34,7 +36,9 @@ public class GameStart extends AppCompatActivity {
 
     //Switches the view to the quiz fragment
     public void changeView() {
-        Intent i = new Intent(GameStart.this, GamePlay.class);
+        i = new Intent(GameStart.this, GamePlay.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         //i.putExtra("user", ptEntrantName.getText().toString());
         startActivity(i);
     }

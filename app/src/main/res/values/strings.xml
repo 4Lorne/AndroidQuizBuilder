@@ -24,6 +24,6 @@
     <string name="dRadio">D</string>
 
     <string name="tvFinalScore">Final Score</string>
-    <string name="tvScore">0</string>
+    <string name="tvFinalScoreNum">0</string>
     <string name="btnPlayAgain">Play Again</string>
 </resources>
