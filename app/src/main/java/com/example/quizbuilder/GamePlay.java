@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,7 @@ public class GamePlay extends AppCompatActivity {
     String currentScoreString = "Score: ";
 
     TextView question, questionNumber, currentScore;
-    TextView aRadio, bRadio, cRadio, dRadio;
+    RadioButton aRadio, bRadio, cRadio, dRadio;
     RadioGroup group;
 
     Button submitAnswer;
@@ -39,7 +40,7 @@ public class GamePlay extends AppCompatActivity {
     int questionCounter = 1;
     int score = 0;
     boolean found = false;
-
+    int answerPos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,6 @@ public class GamePlay extends AppCompatActivity {
         setContentView(R.layout.activity_game_play);
 
         name = getIntent().getStringExtra("user");
-
         question = findViewById(R.id.tvQuestion);
         questionNumber = findViewById(R.id.tvQuestionNumber);
         submitAnswer = findViewById(R.id.tvSubmitAnswer);
@@ -106,8 +106,12 @@ public class GamePlay extends AppCompatActivity {
     }
 
     //Checks for validity
-    public void checkAnswer(TextView radio, String currentScoreString) {
-        if (radio.getText().equals(dictionary.get(term.get(index)))) {
+    //TODO: answerPos will provide the correct index, figure out how to isolate the answer.
+    public void checkAnswer(RadioButton radio, String currentScoreString) {
+        System.out.println(answerPos);
+        System.out.println(radio.getId());
+        ArrayList<TextView> radioGroup = new ArrayList<>(Arrays.asList(aRadio, bRadio, cRadio, dRadio));
+        if (answerPos == 0 && radioGroup.indexOf(aRadio) == 0) {
             Toast.makeText(getApplicationContext(), "Correct answer", Toast.LENGTH_LONG).show();
             score++;
             currentScoreString = currentScoreString + score;
@@ -118,10 +122,10 @@ public class GamePlay extends AppCompatActivity {
         }
     }
 
-    //TODO: Remove Questions as you answer
     //Generates new questions every time it is ran
     public void regenerateQuestions() {
         Collections.shuffle(definition);
+        Collections.shuffle(term);
 
         String questionDefault = "Question ";
         questionNumber.setText(questionDefault);
@@ -130,35 +134,31 @@ public class GamePlay extends AppCompatActivity {
 
         //Randomizing the outcomes
         Random r = new Random();
-        index = r.nextInt(term.size());
+        index = r.nextInt(3);
 
-        //TODO: Hard coded to always have the answer be in the first position, fix later
-        //TODO: Possible for answers to be duplicates
-        ArrayList<TextView> radioGroup = new ArrayList<>(Arrays.asList(aRadio,bRadio,cRadio,dRadio));
-        question.setText(term.get(index));
+        ArrayList<TextView> radioGroup = new ArrayList<>(Arrays.asList(aRadio, bRadio, cRadio, dRadio));
+        question.setText(term.get(0));
 
-//        for (int i = 0; i < 4; i++){
-//            if (radioGroup.get(i).getText().equals(dictionary.get(question.getText().toString()))){
-//                found = true;
-//                System.out.println("found");
-//            }
-//            if (!found){
-//                radioGroup.get(i).setText(dictionary.get(definition.get(index)));
-//            }
-//            radioGroup.get(i).setText(definition.get(i));
-//
-//        }
         aRadio.setText(definition.get(0));
         bRadio.setText(definition.get(1));
         cRadio.setText(definition.get(2));
         dRadio.setText(definition.get(3));
-
-        if (Objects.equals(dictionary.get(term.get(index)), aRadio.getText())){
-            System.out.println("True");
+        for (int i = 0; i < 4; i++) {
+            if (radioGroup.get(i).getText().equals(dictionary.get(term.get(0)))) {
+                found = true;
+                answerPos = i;
+            }
+        }
+        //Randomizes the slot the term takes up
+        if (found == false) {
+            radioGroup.get(index).setText(dictionary.get(term.get(0)));
+            answerPos = index;
         }
 
-        //found = false;
         questionCounter++;
+        term.remove(0);
+
+        found = false;
     }
 
     //Reads in the terms.txt file and extracts the file into two arraylists and one hashmap
@@ -183,7 +183,7 @@ public class GamePlay extends AppCompatActivity {
 
     //Changes the view to the finished screen
     public void changeView() {
-        if (questionCounter > 10){
+        if (questionCounter > 10) {
             Intent i = new Intent(GamePlay.this, GameFinished.class);
             i.putExtra("score", String.valueOf(score));
             startActivity(i);
