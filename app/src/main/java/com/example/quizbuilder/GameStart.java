@@ -1,8 +1,11 @@
 package com.example.quizbuilder;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -20,7 +23,12 @@ public class GameStart extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_start);
-        //populateSpinner();
+
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#0275d8"));
+        assert actionBar != null;
+        actionBar.setBackgroundDrawable(colorDrawable);
+
         startGame = findViewById(R.id.button);
         startGame.setOnClickListener(onButtonClicked);
 

@@ -122,6 +122,7 @@
         android:id="@+id/tvQuestion"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:gravity="center"
         android:text="@string/tvQuestion"
         android:textColor="@color/black"
